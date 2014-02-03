@@ -464,14 +464,14 @@ shinyServer(function(input, output,session) {
     #res = matrix("No Method has been selected", nrow=15,ncol=1)    
     if (method_used == "tree"){ 
       res = round(the_tree_computations()$CART_tree$variable.importance, 2)
-      cat(res)
+      
       #rownames(res) <- all_inputs$independent_variables
       #colnames(res) <- "tree"
     }
     if (method_used == "logistic"){ 
       res = round(summary(the_logistic_computations()$logreg_solution)$coefficients,1)
       as.data.frame(res)
-      cat(res)
+      
       #colnames(res) <- "logistic"
     }
     if (method_used == "svm"){
@@ -669,7 +669,7 @@ shinyServer(function(input, output,session) {
           useonly = which(probs >= 1-prob)
           c(length(useonly)/length(actual_class), sum(actual_class[useonly])/all1s) 
         }))
-        cat("the_lift has", dim(the_lift))
+        
         list( theperf = the_lift,
               thecolor = thecolor
         )
@@ -683,7 +683,7 @@ shinyServer(function(input, output,session) {
         for (iter in 1:length(res)){
           theperf = res[[iter]]$theperf
           thecolor = res[[iter]]$thecolor          
-          plot(theperf[1,], theperf[2,], col=thecolor, lty=1,main="Lift Curve")          
+          plot(theperf[1,], theperf[2,], col=thecolor, type="l",lty=1,main="Lift Curve")          
           if(iter == 1){
             grid()
             par(new=TRUE)
@@ -696,7 +696,7 @@ shinyServer(function(input, output,session) {
       } else {
         theperf = res[[1]]$theperf
         thecolor = res[[1]]$thecolor        
-        plot(theperf[1,], theperf[2,], col=thecolor, lty=1, main="Lift Curve")
+        plot(theperf[1,], theperf[2,], col=thecolor, type="l",lty=1, main="Lift Curve")
       }      
     }    
   })
@@ -771,7 +771,7 @@ shinyServer(function(input, output,session) {
         for (iter in 1:length(res)){
           theperf = res[[iter]]$theperf
           thecolor = res[[iter]]$thecolor          
-          plot(theperf[1,], theperf[2,], col=thecolor, lty=1, main="Profit Curve")          
+          plot(theperf[1,], theperf[2,], col=thecolor,type="l",lty=1, main="Profit Curve")          
           if(iter == 1){
             grid()
             par(new=TRUE)
@@ -784,7 +784,7 @@ shinyServer(function(input, output,session) {
       } else {
         theperf = res[[1]]$theperf
         thecolor = res[[1]]$thecolor        
-        plot(theperf[1,], theperf[2,], col=thecolor, lty=1, main="Profit Curve")
+        plot(theperf[1,], theperf[2,], col=thecolor,type="l", lty=1, main="Profit Curve")
       }      
     }    
   })
